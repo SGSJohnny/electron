@@ -4,6 +4,8 @@
 
 #include "atom/browser/ui/views/menu_bar.h"
 
+#include <iostream>
+
 #if defined(USE_X11)
 #include "gtk/gtk.h"
 #endif
@@ -59,6 +61,7 @@ MenuBar::~MenuBar() {
 }
 
 void MenuBar::SetMenu(ui::MenuModel* model) {
+  std::cout << "SetMenu" << std::endl << std::flush;
   menu_model_ = model;
   RemoveAllChildViews(true);
 
@@ -151,7 +154,9 @@ void MenuBar::OnMenuButtonClicked(views::MenuButton* source,
   }
 
   MenuDelegate menu_delegate(this);
-  menu_delegate.RunMenu(menu_model_->GetSubmenuModelAt(id), source);
+  AtomMenuModel* submenu_model = static_cast<AtomMenuModel*>(
+      menu_model_->GetSubmenuModelAt(id));
+  menu_delegate.RunMenu(submenu_model, source);
 }
 
 void MenuBar::OnNativeThemeChanged(const ui::NativeTheme* theme) {

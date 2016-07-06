@@ -16,6 +16,7 @@
 #include <glib-object.h>
 
 #include "atom/browser/native_window_views.h"
+#include "atom/browser/ui/atom_menu_model.h"
 #include "base/logging.h"
 #include "base/strings/stringprintf.h"
 #include "base/strings/utf_string_conversions.h"
@@ -242,7 +243,7 @@ void GlobalMenuBarX11::BuildMenuFromModel(ui::MenuModel* model,
                          G_CALLBACK(OnSubMenuShowThunk), this);
       } else {
         ui::Accelerator accelerator;
-        if (model->GetAcceleratorAt(i, &accelerator))
+        if (static_cast<AtomMenuModel*>(model)->GetAcceleratorAtWithParams(i, true, &accelerator))
           RegisterAccelerator(item, accelerator);
 
         g_signal_connect(item, "item-activated",

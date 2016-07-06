@@ -69,16 +69,17 @@ bool StringToAccelerator(const std::string& shortcut,
   return true;
 }
 
-void GenerateAcceleratorTable(AcceleratorTable* table, ui::MenuModel* model) {
+void GenerateAcceleratorTable(AcceleratorTable* table,
+                              atom::AtomMenuModel* model) {
   int count = model->GetItemCount();
   for (int i = 0; i < count; ++i) {
     ui::MenuModel::ItemType type = model->GetTypeAt(i);
     if (type == ui::MenuModel::TYPE_SUBMENU) {
-      ui::MenuModel* submodel = model->GetSubmenuModelAt(i);
+      auto submodel = static_cast<atom::AtomMenuModel*>(model->GetSubmenuModelAt(i));
       GenerateAcceleratorTable(table, submodel);
     } else {
       ui::Accelerator accelerator;
-      if (model->GetAcceleratorAt(i, &accelerator)) {
+      if (model->GetAcceleratorAtWithParams(i, true, &accelerator)) {
         MenuItem item = { i, model };
         (*table)[accelerator] = item;
       }

@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "atom/browser/native_window_observer.h"
+#include "atom/browser/ui/atom_menu_model.h"
 #include "atom/browser/ui/accelerator_util.h"
 #include "base/cancelable_callback.h"
 #include "base/memory/scoped_ptr.h"
@@ -159,7 +160,7 @@ class NativeWindow : public base::SupportsUserData,
   virtual void SetIgnoreMouseEvents(bool ignore) = 0;
   virtual void SetContentProtection(bool enable) = 0;
   virtual void SetFocusable(bool focusable);
-  virtual void SetMenu(ui::MenuModel* menu);
+  virtual void SetMenu(AtomMenuModel* menu);
   virtual bool HasModalDialog();
   virtual void SetParentWindow(NativeWindow* parent);
   virtual gfx::NativeWindow GetNativeWindow() = 0;

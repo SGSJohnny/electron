@@ -291,7 +291,7 @@ bool NativeWindow::IsDocumentEdited() {
 void NativeWindow::SetFocusable(bool focusable) {
 }
 
-void NativeWindow::SetMenu(ui::MenuModel* menu) {
+void NativeWindow::SetMenu(AtomMenuModel* menu) {
 }
 
 bool NativeWindow::HasModalDialog() {
